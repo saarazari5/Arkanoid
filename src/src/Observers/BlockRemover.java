@@ -1,4 +1,9 @@
-package src;
+package src.Observers;
+
+import src.Game.Counter;
+import src.Game.Game;
+import src.Geometry.Ball;
+import src.Geometry.Block;
 
 import java.lang.ref.WeakReference;
 import java.util.Objects;

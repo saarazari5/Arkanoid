@@ -1,4 +1,7 @@
-package src;
+package src.Observers;
+
+import src.Geometry.Ball;
+import src.Geometry.Block;
 
 /**
  * Hit observer.

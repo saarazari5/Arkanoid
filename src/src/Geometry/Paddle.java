@@ -1,10 +1,13 @@
-package src;
+package src.Geometry;
 
 import biuoop.KeyboardSensor;
+import src.Game.Game;
 
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+
+import static src.Game.GameToolsProvider.DEF_WIDTH;
 
 /**
  * Paddle.
@@ -55,7 +58,7 @@ public class Paddle extends Block  {
      */
     public void moveRight() {
         Point oldUpperLeft = getUpperLeft();
-        if (getWidth() + oldUpperLeft.getX() >= Game.DEF_WIDTH) {
+        if (getWidth() + oldUpperLeft.getX() >= DEF_WIDTH) {
             return;
         }
         setUpperLeft(new Point(oldUpperLeft.getX() + 10, oldUpperLeft.getY()));

@@ -1,5 +1,9 @@
 package src;
 
+import src.Game.Game;
+import src.Game.GameEnvironment;
+import src.Game.SpriteCollection;
+
 /**
  * main method.
  */

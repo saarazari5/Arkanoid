@@ -1,4 +1,10 @@
-package src;
+package src.Game;
+
+import src.Game.Animations.Collidable;
+import src.Geometry.CollisionInfo;
+import src.Geometry.Line;
+import src.Geometry.Point;
+import src.Geometry.Rectangle;
 
 import java.util.LinkedList;
 import java.util.List;

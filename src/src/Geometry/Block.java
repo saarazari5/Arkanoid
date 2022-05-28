@@ -1,12 +1,20 @@
-package src;
+package src.Geometry;
 
 import biuoop.DrawSurface;
+import src.Game.Animations.Collidable;
+import src.Game.Game;
+import src.Game.Animations.Sprite;
+import src.Observers.HitListener;
+import src.Observers.HitNotifier;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static src.Game.GameToolsProvider.DEF_HEIGHT;
+import static src.Game.GameToolsProvider.DEF_WIDTH;
 
 /**
  * Block.
@@ -107,7 +115,7 @@ public class Block extends Rectangle implements Collidable, Sprite, HitNotifier 
         if (direction == RectLineDirection.TOP || direction == RectLineDirection.BOTTOM) {
             return new Velocity(currentVelocity.getDx(), -currentVelocity.getDy());
         } else if (direction == RectLineDirection.LEFT || direction == RectLineDirection.RIGHT) {
-            if (isBound(Game.DEF_HEIGHT, Game.DEF_WIDTH) && currentVelocity.getDy() == 0) {
+            if (isBound(DEF_HEIGHT, DEF_WIDTH) && currentVelocity.getDy() == 0) {
                 return new Velocity(-currentVelocity.getDx(),
                         direction == RectLineDirection.LEFT ? -3 : 3);
             }

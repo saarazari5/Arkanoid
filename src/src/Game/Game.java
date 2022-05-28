@@ -1,29 +1,44 @@
-package src;
+package src.Game;
 
 import biuoop.DrawSurface;
 import biuoop.GUI;
+import biuoop.KeyboardSensor;
 import biuoop.Sleeper;
+import src.Game.Animations.*;
+import src.Game.Screens.PauseScreen;
+import src.Geometry.Ball;
+import src.Geometry.Block;
+import src.Geometry.Paddle;
+import src.Geometry.Point;
+import src.Observers.BallRemover;
+import src.Observers.BlockRemover;
+import src.Observers.ScoreTrackingListener;
 
 import java.awt.Color;
+import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
+import static src.Game.GameToolsProvider.DEF_HEIGHT;
+import static src.Game.GameToolsProvider.DEF_WIDTH;
+
+
 /**
  * Game.
  */
-public class Game {
+public class Game implements Animation {
+    private final AnimationRunner runner;
+    private boolean running = true;
     private final SpriteCollection sprites;
     private final GameEnvironment environment;
     private  final Counter blockCounter = new Counter();
     private  final Counter ballsCounter = new Counter();
-    private final  BlockRemover blockRemover;
-    private final  BallRemover ballRemover;
+    private final BlockRemover blockRemover;
+    private final BallRemover ballRemover;
     private ScoreTrackingListener scoreTrackingListener;
-    public static final int DEF_WIDTH = 800;
-    public static final int DEF_HEIGHT = 600;
+
     public static final int DEF_WALLS_SIZE = 10;
-    private final GUI gui = new GUI("Ass3Game", DEF_WIDTH, DEF_HEIGHT);
 
     /**
      * @param sprites collection.
@@ -34,6 +49,7 @@ public class Game {
         this.environment = environment;
         this.blockRemover = new BlockRemover(this, blockCounter);
         this.ballRemover = new BallRemover(this, ballsCounter);
+        this.runner = new AnimationRunner(getGUI(), 60, new Sleeper());
     }
 
     /**
@@ -96,7 +112,7 @@ public class Game {
      * and add them to the game.
      */
     public void initialize() {
-        Paddle paddle = new Paddle(new Point(350, 500), 15, 100, Color.BLACK, gui.getKeyboardSensor());
+        Paddle paddle = new Paddle(new Point(350, 500), 15, 100, Color.BLACK, getKeyboard());
         paddle.addToGame(this);
         Counter points = new Counter();
         this.scoreTrackingListener = new ScoreTrackingListener(points);
@@ -142,6 +158,18 @@ public class Game {
     }
 
     /**
+     * @return gui.
+     */
+    private GUI getGUI() {
+        return GameToolsProvider.getInstance().getGui();
+    }
+    /**
+     * @return keyboard.
+     */
+    private KeyboardSensor getKeyboard() {
+       return GameToolsProvider.getInstance().getKeyboard();
+    }
+    /**
      * Initializing the walls.
      */
     public void initWalls() {
@@ -157,29 +185,34 @@ public class Game {
     /**
      * run the game.
      */
-    @SuppressWarnings("InfiniteLoopStatement")
     public void run() {
-        int framesPerSecond = 60;
-        int millisecondsPerFrame = 1000 / framesPerSecond;
-        Sleeper sleeper = new Sleeper();
-        while (true) {
-            long startTime = System.currentTimeMillis(); // timing
-            DrawSurface d = gui.getDrawSurface();
-            this.sprites.drawAllOn(d);
-            gui.show(d);
-            this.sprites.notifyAllTimePassed();
-            long usedTime = System.currentTimeMillis() - startTime;
-            long milliSecondLeftToSleep = millisecondsPerFrame - usedTime;
-            if (milliSecondLeftToSleep > 0) {
-                sleeper.sleepFor(milliSecondLeftToSleep);
-            }
-            if (blockCounter.getValue() == 0) {
-                scoreTrackingListener.addScore(100);
-                gui.close();
-            }
-            if (ballsCounter.getValue() == 0) {
-                gui.close();
-            }
+        this.running = true;
+        this.runner.run(new CountdownAnimation(3.0, 3, sprites));
+        this.runner.run(new WeakReference<>(this));
+    }
+
+    @Override
+    public void doOneFrame(DrawSurface d) {
+        this.sprites.drawAllOn(d);
+        this.sprites.notifyAllTimePassed();
+
+        if (getKeyboard().isPressed("p")) {
+            this.runner.run(new PauseScreen(getKeyboard()));
         }
+
+        if (blockCounter.getValue() == 0) {
+            scoreTrackingListener.addScore(100);
+            this.running = false;
+            getGUI().close();
+        }
+        if (ballsCounter.getValue() == 0) {
+            this.running = false;
+            getGUI().close();
+        }
+    }
+
+    @Override
+    public boolean shouldStop() {
+        return !this.running;
     }
 }

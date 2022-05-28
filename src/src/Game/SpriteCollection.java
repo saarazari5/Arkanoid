@@ -1,6 +1,7 @@
-package src;
+package src.Game;
 
 import biuoop.DrawSurface;
+import src.Game.Animations.Sprite;
 
 import java.util.ArrayList;
 

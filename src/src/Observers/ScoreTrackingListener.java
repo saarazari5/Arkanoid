@@ -1,4 +1,8 @@
-package src;
+package src.Observers;
+
+import src.Game.Counter;
+import src.Geometry.Ball;
+import src.Geometry.Block;
 
 /**
  * Score tracker observer.

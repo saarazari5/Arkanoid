@@ -1,4 +1,9 @@
-package src;
+package src.Game.Animations;
+
+import src.Geometry.Ball;
+import src.Geometry.Point;
+import src.Geometry.Rectangle;
+import src.Geometry.Velocity;
 
 /**
  */

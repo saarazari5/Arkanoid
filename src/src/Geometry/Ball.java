@@ -1,6 +1,10 @@
-package src;
+package src.Geometry;
 
 import biuoop.DrawSurface;
+import src.Game.Game;
+import src.Game.Animations.Sprite;
+import src.Game.GameEnvironment;
+
 import java.awt.Color;
 import java.lang.ref.WeakReference;
 

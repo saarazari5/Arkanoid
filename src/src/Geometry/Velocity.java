@@ -1,4 +1,4 @@
-package src;
+package src.Geometry;
 
 /**
  * Velocity specifies the change in position on the `x` and the `y` axes.

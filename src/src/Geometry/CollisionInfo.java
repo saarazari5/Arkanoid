@@ -1,9 +1,11 @@
-package src;
+package src.Geometry;
+
+import src.Game.Animations.Collidable;
 
 /**
  * Collision info object.
  */
- class CollisionInfo {
+public class CollisionInfo {
 
      private Point collisionPoint;
      private Collidable collisionObject;
@@ -12,7 +14,7 @@ package src;
      * @param collisionPoint point
      * @param collisionObject object
      */
-     CollisionInfo(Point collisionPoint, Collidable collisionObject) {
+    public CollisionInfo(Point collisionPoint, Collidable collisionObject) {
         this.collisionPoint = collisionPoint;
         this.collisionObject = collisionObject;
     }
