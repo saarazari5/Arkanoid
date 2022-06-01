@@ -1,7 +1,7 @@
 package src.Game.Screens.Levels;
 
 import src.Game.Animations.Sprite;
-import src.Game.GameToolsProvider;
+import src.Game.GameUtils;
 import src.Game.Screens.LevelInformation;
 import src.Game.Screens.LevelOneSprite;
 import src.Geometry.Block;
@@ -47,7 +47,7 @@ public class LevelOne implements LevelInformation {
 
     @Override
     public Sprite getBackground() {
-        return new Block(new Point(10, 30), GameToolsProvider.DEF_HEIGHT, GameToolsProvider.DEF_WIDTH, Color.BLACK);
+        return new Block(new Point(10, 30), GameUtils.DEF_HEIGHT, GameUtils.DEF_WIDTH, Color.BLACK);
     }
 
     @Override

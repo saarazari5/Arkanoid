@@ -5,7 +5,7 @@ import biuoop.KeyboardSensor;
 import java.awt.Color;
 import java.util.Arrays;
 
-import static src.Game.GameToolsProvider.DEF_WIDTH;
+import static src.Game.GameUtils.DEF_WIDTH;
 
 /**
  * Paddle.

@@ -23,8 +23,8 @@ import java.awt.Color;
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.Objects;
-import static src.Game.GameToolsProvider.DEF_HEIGHT;
-import static src.Game.GameToolsProvider.DEF_WIDTH;
+import static src.Game.GameUtils.DEF_HEIGHT;
+import static src.Game.GameUtils.DEF_WIDTH;
 
 
 /**

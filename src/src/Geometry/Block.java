@@ -13,8 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static src.Game.GameToolsProvider.DEF_HEIGHT;
-import static src.Game.GameToolsProvider.DEF_WIDTH;
+import static src.Game.GameUtils.DEF_HEIGHT;
+import static src.Game.GameUtils.DEF_WIDTH;
 
 /**
  * Block.

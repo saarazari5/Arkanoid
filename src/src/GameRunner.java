@@ -4,6 +4,7 @@ package src;
 import biuoop.GUI;
 import src.Game.Animations.AnimationRunner;
 import src.Game.GameFlow;
+import src.Game.GameUtils;
 import src.Game.Screens.LevelInformation;
 import src.Game.Screens.Levels.LevelFour;
 import src.Game.Screens.Levels.LevelOne;
@@ -45,7 +46,7 @@ public class GameRunner {
                     listOfLevels.add(level4);
                 }
             }
-            GUI gui = new GUI("GAME", 800, 600);
+            GUI gui = new GUI("GAME", GameUtils.DEF_WIDTH, GameUtils.DEF_HEIGHT);
             AnimationRunner animationRunner = new AnimationRunner(gui);
             GameFlow gameFlow = new GameFlow(animationRunner, gui);
 
