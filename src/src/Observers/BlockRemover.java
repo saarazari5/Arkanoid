@@ -1,7 +1,7 @@
 package src.Observers;
 
 import src.Game.Counter;
-import src.Game.Game;
+import src.Game.GameLevel;
 import src.Geometry.Ball;
 import src.Geometry.Block;
 
@@ -14,15 +14,15 @@ import java.util.Objects;
  */
 public class BlockRemover implements HitListener {
 
-    private final WeakReference<Game> game;
+    private final WeakReference<GameLevel> game;
     private final WeakReference<Counter> remainingBlocks;
 
     /**
-     * @param game where blocks are in.
+     * @param gameLevel where blocks are in.
      * @param remainingBlocks the starting remaining blocks.
      */
-    public BlockRemover(Game game, Counter remainingBlocks) {
-        this.game = new WeakReference<>(game);
+    public BlockRemover(GameLevel gameLevel, Counter remainingBlocks) {
+        this.game = new WeakReference<>(gameLevel);
         this.remainingBlocks = new WeakReference<>(remainingBlocks);
     }
 
@@ -42,11 +42,11 @@ public class BlockRemover implements HitListener {
      */
     @Override
     public void hitEvent(Block beingHit, Ball hitter) {
-        Game game = this.game.get();
-        if (game == null) {
+        GameLevel gameLevel = this.game.get();
+        if (gameLevel == null) {
             return;
         }
-        beingHit.removeFromGame(game);
+        beingHit.removeFromGame(gameLevel);
         beingHit.removeHitListener(this);
         Objects.requireNonNull(remainingBlocks.get()).decrease(1);
     }

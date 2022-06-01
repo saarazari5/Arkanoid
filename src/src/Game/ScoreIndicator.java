@@ -2,7 +2,6 @@ package src.Game;
 
 import biuoop.DrawSurface;
 import src.Game.Animations.Sprite;
-
 import java.awt.Color;
 import java.lang.ref.WeakReference;
 
@@ -10,16 +9,16 @@ import java.lang.ref.WeakReference;
  * display score.
  */
 public class ScoreIndicator implements Sprite {
-    private final WeakReference<Game> game;
+    private final WeakReference<GameLevel> game;
     private final WeakReference<Counter> counter;
 
     /**
      * Constructor.
-     * @param game - this game
+     * @param gameLevel - this game
      * @param counter - this counter
      */
-    public ScoreIndicator(Game game, Counter counter) {
-        this.game = new WeakReference<>(game);
+    public ScoreIndicator(GameLevel gameLevel, Counter counter) {
+        this.game = new WeakReference<>(gameLevel);
         this.counter = new WeakReference<>(counter);
     }
 
@@ -33,7 +32,11 @@ public class ScoreIndicator implements Sprite {
             return;
         }
         d.setColor(Color.BLACK);
-        d.drawText(d.getWidth() / 2, 40, Integer.toString(counter.getValue()), 15);
+        d.drawText(d.getWidth() / 2, 15, "Score: ".concat(Integer.toString(counter.getValue())), 15);
+        GameLevel game = this.game.get();
+        if (game != null) {
+            d.drawText(d.getWidth() / 8, 15, "Level Name: ".concat(game.getLevelName()), 15);
+        }
     }
 
     /**
@@ -47,11 +50,11 @@ public class ScoreIndicator implements Sprite {
      * add the ball to the game.
      */
     public void addToGame() {
-        Game game = this.game.get();
-        if (game == null) {
+        GameLevel gameLevel = this.game.get();
+        if (gameLevel == null) {
             return;
         }
-       game.addSprite(this);
+        gameLevel.addSprite(this);
     }
 
 }

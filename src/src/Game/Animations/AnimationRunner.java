@@ -14,6 +14,8 @@ public class AnimationRunner {
     private final WeakReference<GUI> gui;
     private final int framesPerSecond;
     private final Sleeper sleeper;
+    private static final int FRAME_PER_SECOND = 60;
+
 
     /**
      * @param gui .
@@ -26,6 +28,12 @@ public class AnimationRunner {
         this.sleeper = sleeper;
     }
 
+    /**
+     * @param gui .
+     */
+    public AnimationRunner(GUI gui) {
+        this(gui, FRAME_PER_SECOND, new Sleeper());
+    }
     /**
      * run an animation in a certain timeframe.
      * @param animation object.

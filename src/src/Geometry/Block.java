@@ -2,7 +2,7 @@ package src.Geometry;
 
 import biuoop.DrawSurface;
 import src.Game.Animations.Collidable;
-import src.Game.Game;
+import src.Game.GameLevel;
 import src.Game.Animations.Sprite;
 import src.Observers.HitListener;
 import src.Observers.HitNotifier;
@@ -126,12 +126,12 @@ public class Block extends Rectangle implements Collidable, Sprite, HitNotifier 
 
     @Override
     public void drawOn(DrawSurface d) {
-        d.setColor(Color.black);
-        d.drawRectangle((int) this.getUpperLeft().getX(), (int) this.getUpperLeft().getY(),
-                (int) this.getWidth(), (int) this.getHeight());
         d.setColor(this.color);
-        d.fillRectangle((int) this.getUpperLeft().getX(), (int) this.getUpperLeft().getY(),
-                (int) this.getWidth(), (int) this.getHeight());
+        d.fillRectangle((int) getUpperLeft().getX(), (int) getUpperLeft().getY(),
+                (int) getWidth(), (int) getHeight());
+        d.setColor(Color.black);
+        d.drawRectangle((int) getUpperLeft().getX(), (int) getUpperLeft().getY(),
+                (int) getWidth(), (int) getHeight());
     }
 
     @Override
@@ -149,19 +149,19 @@ public class Block extends Rectangle implements Collidable, Sprite, HitNotifier 
     }
 
     /**
-     * @param game to add a block.
+     * @param gameLevel to add a block.
      */
-    public void addToGame(Game game) {
-        game.addSprite(this);
-        game.addCollidable(this);
+    public void addToGame(GameLevel gameLevel) {
+        gameLevel.addSprite(this);
+        gameLevel.addCollidable(this);
     }
 
     /**
-     * @param game to remove a block.
+     * @param gameLevel to remove a block.
      */
-    public void removeFromGame(Game game) {
-        game.removeSprite(this);
-        game.removeCollidable(this);
+    public void removeFromGame(GameLevel gameLevel) {
+        gameLevel.removeSprite(this);
+        gameLevel.removeCollidable(this);
     }
 
     /**

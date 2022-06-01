@@ -1,11 +1,9 @@
 package src.Geometry;
 
 import biuoop.KeyboardSensor;
-import src.Game.Game;
 
 import java.awt.Color;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import static src.Game.GameToolsProvider.DEF_WIDTH;
 
@@ -19,6 +17,7 @@ public class Paddle extends Block  {
     private static final int NUM_OF_REGIONS = 5;
     private static final int TWO_PI = 360;
     private static final int DEGREES = 30;
+    private int paddleSpeed = 10;
 
     /**
      * @param upperLeft of the paddle
@@ -48,7 +47,8 @@ public class Paddle extends Block  {
      */
     public void moveLeft() {
         Point oldUpperLeft = getUpperLeft();
-        Point newUpperLeft = new Point(oldUpperLeft.getX() < 10 ? oldUpperLeft.getX() : oldUpperLeft.getX() - 10,
+        Point newUpperLeft = new Point(oldUpperLeft.getX() < paddleSpeed ? oldUpperLeft.getX() : oldUpperLeft.getX()
+                - paddleSpeed,
                 oldUpperLeft.getY());
         setUpperLeft(newUpperLeft);
     }
@@ -61,13 +61,20 @@ public class Paddle extends Block  {
         if (getWidth() + oldUpperLeft.getX() >= DEF_WIDTH) {
             return;
         }
-        setUpperLeft(new Point(oldUpperLeft.getX() + 10, oldUpperLeft.getY()));
+        setUpperLeft(new Point(oldUpperLeft.getX() + paddleSpeed, oldUpperLeft.getY()));
+    }
+
+    /**
+     * @param paddleSpeed setter.
+     */
+    public void setPaddleSpeed(int paddleSpeed) {
+        this.paddleSpeed = paddleSpeed;
     }
 
     @Override
     public Velocity hit(Ball hitter, Point collisionPoint, Velocity currentVelocity) {
         for (int i = 0; i < RectLineDirection.values().length; i++) {
-            RectLineDirection direction = Arrays.stream(RectLineDirection.values()).collect(Collectors.toList()).get(i);
+            RectLineDirection direction = Arrays.stream(RectLineDirection.values()).toList().get(i);
             if (getLine(direction).isPointOnSegment(collisionPoint)) {
                 if (direction == RectLineDirection.TOP) {
                     return hitOnTopOfPaddle(collisionPoint, currentVelocity);

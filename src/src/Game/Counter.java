@@ -5,7 +5,21 @@ package src.Game;
  */
 public class Counter {
 
-    private int counter = 0;
+    private int counter;
+
+    /**
+     * @param counter c.
+     */
+    public Counter(int counter) {
+        this.counter = Math.max(counter, 0);
+    }
+
+    /**
+     * const overload.
+     */
+    public Counter() {
+        this(0);
+    }
 
     /**
      * add number to current count.
